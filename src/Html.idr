@@ -1,569 +1,596 @@
-module Main
+module Html
 
 
-import Html.Internal
+import Html.Attributes
 
 
-public export
+export
+data Html
+    = Text   String
+    | Leaf   String (List Attribute)
+    | Parent String (List Attribute) (List Html)
+    | Root                           (List Html)
+
+
+mutual
+    export
+    ToString Html where
+        toString (Text   val               ) = val
+        toString (Leaf   tag []            ) = "<\{tag}>"
+        toString (Leaf   tag attrs         ) = "<\{tag}\{toString attrs}>"
+        toString (Parent tag []    []      ) = "<\{tag}></\{tag}>"
+        toString (Parent tag attrs []      ) = "<\{tag}\{toString attrs}></\{tag}>"
+        toString (Parent tag []    children) = "<\{tag}>\{toString children}</\{tag}>"
+        toString (Parent tag attrs children) = "<\{tag}\{toString attrs}>\{toString children}</\{tag}>"
+        toString (Root             []      ) = "<!DOCTYPE html>"
+        toString (Root             children) = "<!DOCTYPE html>\{toString children}"
+
+
+    export
+    ToString (List Html) where
+        toString = concat . map toString
+
+
+export
 doctype : List Html -> Html
 doctype = Root
 
 
-public export
+export
 a : List Attribute -> List Html -> Html
 a = Parent "a"
 
 
-public export
+export
 abbr : List Attribute -> List Html -> Html
 abbr = Parent "abbr"
 
 
-public export
+export
 address : List Attribute -> List Html -> Html
 address = Parent "address"
 
 
-public export
+export
 area : List Attribute -> Html
 area = Leaf "area"
 
 
-public export
+export
 article : List Attribute -> List Html -> Html
 article = Parent "article"
 
 
-public export
+export
 aside : List Attribute -> List Html -> Html
 aside = Parent "aside"
 
 
-public export
+export
 audio : List Attribute -> List Html -> Html
 audio = Parent "audio"
 
 
-public export
+export
 b : List Attribute -> List Html -> Html
 b = Parent "b"
 
 
-public export
+export
 base : List Attribute -> Html
 base = Leaf "base"
 
 
-public export
+export
 bdi : List Attribute -> List Html -> Html
 bdi = Parent "bdi"
 
 
-public export
+export
 bdo : List Attribute -> List Html -> Html
 bdo = Parent "bdo"
 
 
-public export
+export
 blockquote : List Attribute -> List Html -> Html
 blockquote = Parent "blockquote"
 
 
-public export
+export
 body : List Attribute -> List Html -> Html
 body = Parent "body"
 
 
-public export
+export
 br : List Attribute -> Html
 br = Leaf "br"
 
 
-public export
+export
 button : List Attribute -> List Html -> Html
 button = Parent "button"
 
 
-public export
+export
 canvas : List Attribute -> List Html -> Html
 canvas = Parent "canvas"
 
 
-public export
+export
 caption : List Attribute -> List Html -> Html
 caption = Parent "caption"
 
 
-public export
+export
 cite : List Attribute -> List Html -> Html
 cite = Parent "cite"
 
 
-public export
+export
 code : List Attribute -> List Html -> Html
 code = Parent "code"
 
 
-public export
+export
 col : List Attribute -> Html
 col = Leaf "col"
 
 
-public export
+export
 colgroup : List Attribute -> List Html -> Html
 colgroup = Parent "colgroup"
 
 
-public export
+export
 data_ : List Attribute -> List Html -> Html
 data_ = Parent "data_"
 
 
-public export
+export
 datalist : List Attribute -> List Html -> Html
 datalist = Parent "datalist"
 
 
-public export
+export
 dd : List Attribute -> List Html -> Html
 dd = Parent "dd"
 
 
-public export
+export
 del : List Attribute -> List Html -> Html
 del = Parent "del"
 
 
-public export
+export
 details : List Attribute -> List Html -> Html
 details = Parent "details"
 
 
-public export
+export
 dfn : List Attribute -> List Html -> Html
 dfn = Parent "dfn"
 
 
-public export
+export
 dialog : List Attribute -> List Html -> Html
 dialog = Parent "dialog"
 
 
-public export
+export
 div : List Attribute -> List Html -> Html
 div = Parent "div"
 
 
-public export
+export
 dl : List Attribute -> List Html -> Html
 dl = Parent "dl"
 
 
-public export
+export
 dt : List Attribute -> List Html -> Html
 dt = Parent "dt"
 
 
-public export
+export
 em : List Attribute -> List Html -> Html
 em = Parent "em"
 
 
-public export
+export
 embed : List Attribute -> Html
 embed = Leaf "embed"
 
 
-public export
+export
 fieldset : List Attribute -> List Html -> Html
 fieldset = Parent "fieldset"
 
 
-public export
+export
 figcaption : List Attribute -> List Html -> Html
 figcaption = Parent "figcaption"
 
 
-public export
+export
 figure : List Attribute -> List Html -> Html
 figure = Parent "figure"
 
 
-public export
+export
 footer : List Attribute -> List Html -> Html
 footer = Parent "footer"
 
 
-public export
+export
 form : List Attribute -> List Html -> Html
 form = Parent "form"
 
 
-public export
+export
 h1 : List Attribute -> List Html -> Html
 h1 = Parent "h1"
 
 
-public export
+export
 h2 : List Attribute -> List Html -> Html
 h2 = Parent "h2"
 
 
-public export
+export
 h3 : List Attribute -> List Html -> Html
 h3 = Parent "h3"
 
 
-public export
+export
 h4 : List Attribute -> List Html -> Html
 h4 = Parent "h4"
 
 
-public export
+export
 h5 : List Attribute -> List Html -> Html
 h5 = Parent "h5"
 
 
-public export
+export
 h6 : List Attribute -> List Html -> Html
 h6 = Parent "h6"
 
 
-public export
+export
 head : List Attribute -> List Html -> Html
 head = Parent "head"
 
 
-public export
+export
 header : List Attribute -> List Html -> Html
 header = Parent "header"
 
 
-public export
+export
 hgroup : List Attribute -> List Html -> Html
 hgroup = Parent "hgroup"
 
 
-public export
+export
 hr : List Attribute -> Html
 hr = Leaf "hr"
 
 
-public export
+export
 html : List Attribute -> List Html -> Html
 html = Parent "html"
 
 
-public export
+export
 i : List Attribute -> List Html -> Html
 i = Parent "i"
 
 
-public export
+export
 iframe : List Attribute -> List Html -> Html
 iframe = Parent "iframe"
 
 
-public export
+export
 img : List Attribute -> Html
 img = Leaf "img"
 
 
-public export
+export
 input : List Attribute -> Html
 input = Leaf "input"
 
 
-public export
+export
 ins : List Attribute -> List Html -> Html
 ins = Parent "ins"
 
 
-public export
+export
 kbd : List Attribute -> List Html -> Html
 kbd = Parent "kbd"
 
 
-public export
+export
 label : List Attribute -> List Html -> Html
 label = Parent "label"
 
 
-public export
+export
 legend : List Attribute -> List Html -> Html
 legend = Parent "legend"
 
 
-public export
+export
 li : List Attribute -> List Html -> Html
 li = Parent "li"
 
 
-public export
+export
 link : List Attribute -> Html
 link = Leaf "link"
 
 
-public export
+export
 main : List Attribute -> List Html -> Html
 main = Parent "main"
 
 
-public export
+export
 map : List Attribute -> List Html -> Html
 map = Parent "map"
 
 
-public export
+export
 mark : List Attribute -> List Html -> Html
 mark = Parent "mark"
 
 
-public export
+export
 menu : List Attribute -> List Html -> Html
 menu = Parent "menu"
 
 
-public export
+export
 meta : List Attribute -> Html
 meta = Leaf "meta"
 
 
-public export
+export
 meter : List Attribute -> List Html -> Html
 meter = Parent "meter"
 
 
-public export
+export
 nav : List Attribute -> List Html -> Html
 nav = Parent "nav"
 
 
-public export
+export
 noscript : List Attribute -> List Html -> Html
 noscript = Parent "noscript"
 
 
-public export
+export
 object : List Attribute -> List Html -> Html
 object = Parent "object"
 
 
-public export
+export
 ol : List Attribute -> List Html -> Html
 ol = Parent "ol"
 
 
-public export
+export
 optgroup : List Attribute -> List Html -> Html
 optgroup = Parent "optgroup"
 
 
-public export
+export
 option : List Attribute -> List Html -> Html
 option = Parent "option"
 
 
-public export
+export
 output : List Attribute -> List Html -> Html
 output = Parent "output"
 
 
-public export
+export
 p : List Attribute -> List Html -> Html
 p = Parent "p"
 
 
-public export
+export
 picture : List Attribute -> List Html -> Html
 picture = Parent "picture"
 
 
-public export
+export
 pre : List Attribute -> List Html -> Html
 pre = Parent "pre"
 
 
-public export
+export
 progress : List Attribute -> List Html -> Html
 progress = Parent "progress"
 
 
-public export
+export
 q : List Attribute -> List Html -> Html
 q = Parent "q"
 
 
-public export
+export
 rp : List Attribute -> List Html -> Html
 rp = Parent "rp"
 
 
-public export
+export
 rt : List Attribute -> List Html -> Html
 rt = Parent "rt"
 
 
-public export
+export
 ruby : List Attribute -> List Html -> Html
 ruby = Parent "ruby"
 
 
-public export
+export
 s : List Attribute -> List Html -> Html
 s = Parent "s"
 
 
-public export
+export
 samp : List Attribute -> List Html -> Html
 samp = Parent "samp"
 
 
-public export
+export
 script : List Attribute -> List Html -> Html
 script = Parent "script"
 
 
-public export
+export
 section : List Attribute -> List Html -> Html
 section = Parent "section"
 
 
-public export
+export
 select : List Attribute -> List Html -> Html
 select = Parent "select"
 
 
-public export
+export
 slot : List Attribute -> List Html -> Html
 slot = Parent "slot"
 
 
-public export
+export
 small : List Attribute -> List Html -> Html
 small = Parent "small"
 
 
-public export
+export
 source : List Attribute -> Html
 source = Leaf "source"
 
 
-public export
+export
 span : List Attribute -> List Html -> Html
 span = Parent "span"
 
 
-public export
+export
 strong : List Attribute -> List Html -> Html
 strong = Parent "strong"
 
 
-public export
+export
 style : List Attribute -> List Html -> Html
 style = Parent "style"
 
 
-public export
+export
 sub : List Attribute -> List Html -> Html
 sub = Parent "sub"
 
 
-public export
+export
 summary : List Attribute -> List Html -> Html
 summary = Parent "summary"
 
 
-public export
+export
 sup : List Attribute -> List Html -> Html
 sup = Parent "sup"
 
 
-public export
+export
 table : List Attribute -> List Html -> Html
 table = Parent "table"
 
 
-public export
+export
 tbody : List Attribute -> List Html -> Html
 tbody = Parent "tbody"
 
 
-public export
+export
 td : List Attribute -> List Html -> Html
 td = Parent "td"
 
 
-public export
+export
 template : List Attribute -> List Html -> Html
 template = Parent "template"
 
 
-public export
+export
 textarea : List Attribute -> List Html -> Html
 textarea = Parent "textarea"
 
 
-public export
+export
 tfoot : List Attribute -> List Html -> Html
 tfoot = Parent "tfoot"
 
 
-public export
+export
 th : List Attribute -> List Html -> Html
 th = Parent "th"
 
 
-public export
+export
 thead : List Attribute -> List Html -> Html
 thead = Parent "thead"
 
 
-public export
+export
 time : List Attribute -> List Html -> Html
 time = Parent "time"
 
 
-public export
+export
 title : List Attribute -> List Html -> Html
 title = Parent "title"
 
 
-public export
+export
 tr : List Attribute -> List Html -> Html
 tr = Parent "tr"
 
 
-public export
+export
 track : List Attribute -> Html
 track = Leaf "track"
 
 
-public export
+export
 u : List Attribute -> List Html -> Html
 u = Parent "u"
 
 
-public export
+export
 ul : List Attribute -> List Html -> Html
 ul = Parent "ul"
 
 
-public export
+export
 var : List Attribute -> List Html -> Html
 var = Parent "var"
 
 
-public export
+export
 video : List Attribute -> List Html -> Html
-video = Parent "f"
+video = Parent "video"
 
 
-public export
+export
 wbr : List Attribute -> Html
 wbr = Leaf "wbr"
 
 
-public export
+export
 text : String -> Html
 text = Text
