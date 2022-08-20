@@ -32,7 +32,7 @@ example =
 ```
 
 ```
-> toString it
+> toString example
 "<aside><h4>House of the Dragon</h4><p>House of the Dragon is a prequal to Game of Thrones.</p></aside>"
 ```
 
@@ -77,7 +77,7 @@ example =
 ```
 
 ```
-> toString it
+> toString example
 "<button type="submit">Log in</button>"
 ```
 
@@ -98,6 +98,6 @@ example =
 ```
 
 ```
-> toString it
+> toString example
 "<canvas height="500" width="500">The canvas tag is not supported by your browser.</canvas>"
 ```
