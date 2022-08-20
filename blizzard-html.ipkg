@@ -3,12 +3,12 @@ package blizzard-html
 version     = 1.0.0
 
 authors     = "Joshua Obritsch <joshua@obritsch.com>"
-bugtracker  = "https://github.com/joshua-obritsch/idris2-html/issues"
+bugtracker  = "https://github.com/joshua-obritsch/idris2-blizzard-html/issues"
 brief       = "An HTML generator"
 license     = "MIT"
 maintainers = "Joshua Obritsch <joshua@obritsch.com>"
-readme      = "https://github.com/joshua-obritsch/idris2-html/README.md"
-sourceloc   = "https://github.com/joshua-obritsch/idris2-html"
+readme      = "https://github.com/joshua-obritsch/idris2-blizzard-html/README.md"
+sourceloc   = "https://github.com/joshua-obritsch/idris2-blizzard-html"
 -- homepage =
 
 -- packages to add to search path
