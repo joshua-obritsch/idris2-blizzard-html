@@ -9,21 +9,21 @@ data Html
     = Text   String
     | Leaf   String (List Attribute)
     | Parent String (List Attribute) (List Html)
-    | Root                           (List Html)
+    | Root   String                  (List Html)
 
 
 mutual
     export
     ToString Html where
-        toString (Text   val               ) = val
-        toString (Leaf   tag []            ) = "<\{tag}>"
-        toString (Leaf   tag attrs         ) = "<\{tag}\{toString attrs}>"
-        toString (Parent tag []    []      ) = "<\{tag}></\{tag}>"
-        toString (Parent tag attrs []      ) = "<\{tag}\{toString attrs}></\{tag}>"
-        toString (Parent tag []    children) = "<\{tag}>\{toString children}</\{tag}>"
-        toString (Parent tag attrs children) = "<\{tag}\{toString attrs}>\{toString children}</\{tag}>"
-        toString (Root             []      ) = "<!DOCTYPE html>"
-        toString (Root             children) = "<!DOCTYPE html>\{toString children}"
+        toString (Text   text                    ) = text
+        toString (Leaf   name []                 ) = "<\{name}>"
+        toString (Leaf   name attributes         ) = "<\{name}\{toString attributes}>"
+        toString (Parent name []         []      ) = "<\{name}></\{name}>"
+        toString (Parent name attributes []      ) = "<\{name}\{toString attributes}></\{name}>"
+        toString (Parent name []         children) = "<\{name}>\{toString children}</\{name}>"
+        toString (Parent name attributes children) = "<\{name}\{toString attributes}>\{toString children}</\{name}>"
+        toString (Root   root            []      ) = "<!\{root}>"
+        toString (Root   root            children) = "<!\{root}>\{toString children}"
 
 
     export
@@ -32,8 +32,28 @@ mutual
 
 
 export
+text : String -> Html
+text = Text
+
+
+export
+leaf : String -> List Attribute -> Html
+leaf = Leaf
+
+
+export
+parent : String -> List Attribute -> List Html -> Html
+parent = Parent
+
+
+export
+root : String -> List Html -> Html
+root = Root
+
+
+export
 doctype : List Html -> Html
-doctype = Root
+doctype = Root "DOCTYPE html"
 
 
 export
@@ -589,8 +609,3 @@ video = Parent "video"
 export
 wbr : List Attribute -> Html
 wbr = Leaf "wbr"
-
-
-export
-text : String -> Html
-text = Text
