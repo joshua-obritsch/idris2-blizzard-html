@@ -14,9 +14,9 @@ data Attribute
 
 export
 ToString Attribute where
-    toString (BoolAttr key False) = ""
+    toString (BoolAttr _   False) = ""
     toString (BoolAttr key True ) = " \{key}"
-    toString (TextAttr key ""   ) = ""
+    toString (TextAttr _   ""   ) = ""
     toString (TextAttr key value) = " \{key}=\"\{value}\""
 
 
