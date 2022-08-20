@@ -45,9 +45,9 @@ import Html
 example : Html
 example =
     body []
-        [ Html.h1 []
+        [ h1 []
             [ text "An Introduction to Idris2" ]
-        , Html.p []
+        , p []
             [ text "Idris2 is a type-driven functional programming language." ]
         ]
 ```
