@@ -27,13 +27,13 @@ example =
         [ h4 []
             [ text "House of the Dragon" ]
         , p []
-            [ text "House of the Dragon is a prequal to Game of Thrones." ]
+            [ text "House of the Dragon is a prequel to Game of Thrones." ]
         ]
 ```
 
 ```
 > toString example
-"<aside><h4>House of the Dragon</h4><p>House of the Dragon is a prequal to Game of Thrones.</p></aside>"
+"<aside><h4>House of the Dragon</h4><p>House of the Dragon is a prequel to Game of Thrones.</p></aside>"
 ```
 
 Example using `body`:
