@@ -14,21 +14,21 @@ data Html
 
 mutual
     export
-    ToString Html where
-        toString (Text   text                    ) = text
-        toString (Leaf   name []                 ) = "<\{name}>"
-        toString (Leaf   name attributes         ) = "<\{name}\{toString attributes}>"
-        toString (Parent name []         []      ) = "<\{name}></\{name}>"
-        toString (Parent name attributes []      ) = "<\{name}\{toString attributes}></\{name}>"
-        toString (Parent name []         children) = "<\{name}>\{toString children}</\{name}>"
-        toString (Parent name attributes children) = "<\{name}\{toString attributes}>\{toString children}</\{name}>"
-        toString (Root   root            []      ) = "<!\{root}>"
-        toString (Root   root            children) = "<!\{root}>\{toString children}"
+    Interpolation Html where
+        interpolate (Text   text                    ) = text
+        interpolate (Leaf   name []                 ) = "<\{name}>"
+        interpolate (Leaf   name attributes         ) = "<\{name}\{attributes}>"
+        interpolate (Parent name []         []      ) = "<\{name}></\{name}>"
+        interpolate (Parent name attributes []      ) = "<\{name}\{attributes}></\{name}>"
+        interpolate (Parent name []         children) = "<\{name}>\{children}</\{name}>"
+        interpolate (Parent name attributes children) = "<\{name}\{attributes}>\{children}</\{name}>"
+        interpolate (Root   root            []      ) = "<!\{root}>"
+        interpolate (Root   root            children) = "<!\{root}>\{children}"
 
 
     export
-    ToString (List Html) where
-        toString = concat . map toString
+    Interpolation (List Html) where
+        interpolate = concat . map interpolate
 
 
 export

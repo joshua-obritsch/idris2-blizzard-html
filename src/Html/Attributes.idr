@@ -1,11 +1,6 @@
 module Html.Attributes
 
 
-public export
-interface ToString a where
-    toString : a -> String
-
-
 export
 data Attribute
     = BoolAttr String Bool
@@ -13,16 +8,16 @@ data Attribute
 
 
 export
-ToString Attribute where
-    toString (BoolAttr _   False) = ""
-    toString (BoolAttr key True ) = " \{key}"
-    toString (TextAttr _   ""   ) = ""
-    toString (TextAttr key value) = " \{key}=\"\{value}\""
+Interpolation Attribute where
+    interpolate (BoolAttr _   False) = ""
+    interpolate (BoolAttr key True ) = " \{key}"
+    interpolate (TextAttr _   ""   ) = ""
+    interpolate (TextAttr key value) = " \{key}=\"\{value}\""
 
 
 export
-ToString (List Attribute) where
-    toString = concat . map toString
+Interpolation (List Attribute) where
+    interpolate = concat . map interpolate
 
 
 export
