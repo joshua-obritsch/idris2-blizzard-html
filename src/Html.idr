@@ -56,21 +56,97 @@ doctype : List Html -> Html
 doctype = RootNode "DOCTYPE html"
 
 
+||| Generates an HTML anchor element with the given attributes and contents.
+|||
+||| Example:
+||| ```
+||| import Html
+||| import Html.Attributes as Attr
+|||
+||| -- Generate a link to a website
+||| myLink : Html
+||| myLink =
+|||     Html.a
+|||         [ Attr.href "https://example.com" ]
+|||         [ Html.text "Link to example.com" ]
+||| ```
+|||
+||| This example generates an anchor element with an `href` attribute pointing to `https://example.com/` and containing
+||| the text "Link to example.com".
 export
 a : List Attribute -> List Html -> Html
 a = ParentNode "a"
 
 
+||| Generates an HTML abbreviation element with the given attributes and contents.
+|||
+||| Example:
+||| ```
+||| import Html
+||| import Html.Attributes as Attr
+|||
+||| -- Generate an abbreviation for Random-Access Memory
+||| myAbbr : Html
+||| myAbbr =
+|||     Html.abbr
+|||         [ Attr.title "Random-Access Memory" ]
+|||         [ Html.text "RAM" ]
+||| ```
+|||
+||| This example generates an abbreviation element with a `title` attribute set to "Random-Access Memory" and
+||| containing the text "RAM".
 export
 abbr : List Attribute -> List Html -> Html
 abbr = ParentNode "abbr"
 
 
+||| Generates an HTML address element with the given attributes and contents.
+|||
+||| Example:
+||| ```
+||| import Html
+|||
+||| -- Generate an address element containing contact information
+||| myAddress : Html
+||| myAddress =
+|||     Html.address []
+|||         [ Html.text "John Smith"
+|||         , Html.br
+|||         , Html.text "123 Main St."
+|||         , Html.br
+|||         , Html.text "Anytown, USA 12345"
+|||         ]
+||| ```
+|||
+||| This example generates an address element with no attributes and containing contact information for "John Smith" at
+||| "123 Main St., Anytown, USA 12345".
 export
 address : List Attribute -> List Html -> Html
 address = ParentNode "address"
 
 
+||| Generates an HTML area element with the given attributes.
+|||
+||| Example:
+||| ```
+||| import Html
+||| import Html.Attributes as Attr
+|||
+||| -- Generate an area element for a clickable image map
+||| myArea : Html
+||| myArea =
+|||     Html.area
+|||         [ Attr.href "#north-america"
+|||         , Attr.alt "North America"
+|||         , Attr.coords [ 0, 0, 100, 100 ]
+|||         ]
+||| ```
+|||
+||| This example generates an area element with `href`, `alt`, and `coords` attributes, which can be used to define a
+||| clickable region within an image map. The `href` attribute specifies the URL or location to which the user should
+||| be taken when the area is clicked, while the `alt` attribute provides alternative text for the area in case the
+||| image cannot be displayed. The `coords` attribute defines the shape and size of the area, in terms of pixel
+||| coordinates relative to the top-left corner of the image.
 export
 area : List Attribute -> Html
 area = LeafNode "area"
