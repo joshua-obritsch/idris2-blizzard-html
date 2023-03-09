@@ -1,4 +1,7 @@
-||| The `Html` module provides a collection of functions for generating HTML elements.
+||| The `Html` module provides a set of data types and functions for generating HTML elements.
+|||
+||| These elements can be used to generate HTML documents programmatically, without relying on string concatenation or
+||| other techniques that can be error-prone and difficult to maintain.
 |||
 ||| Each function in this module returns an `Html` value that represents an HTML element. `Html` values can be composed
 ||| using other `Html` values to create complex HTML documents.
@@ -18,6 +21,9 @@
 |||             [ Html.text "Lorem ipsum dolor sit amet." ]
 |||         ]
 ||| ```
+|||
+||| This will generate an HTML `article` element with a `class` attribute set to `"main"`, containing an `h1` element
+||| with the text `"My Heading"`, and a `p` element with the text `"Lorem ipsum dolor sit amet."`.
 
 module Html
 
@@ -25,12 +31,23 @@ module Html
 import Html.Attributes
 
 
+||| Represents an HTML element.
+|||
+||| This data type can be used to generate HTML elements programmatically using the functions provided by the `Html`
+||| module.
 export
 data Html
-    = TextNode   String
-    | LeafNode   String (List Attribute)
-    | ParentNode String (List Attribute) (List Html)
-    | RootNode   String                  (List Html)
+    = ||| Represents a text node in an HTML element.
+      TextNode   String
+
+    | ||| Represents an HTML element with no child nodes.
+      LeafNode   String (List Attribute)
+
+    | ||| Represents an HTML element with child nodes.
+      ParentNode String (List Attribute) (List Html)
+
+    | ||| Represents an HTML document root node.
+      RootNode   String                  (List Html)
 
 
 mutual
