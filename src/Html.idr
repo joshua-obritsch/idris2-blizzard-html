@@ -22,8 +22,8 @@
 |||         ]
 ||| ```
 |||
-||| This will generate an HTML `article` element with a `class` attribute set to `"main"`, containing an `h1` element
-||| with the text `"My Heading"`, and a `p` element with the text `"Lorem ipsum dolor sit amet."`.
+||| This example generates an HTML `article` element with a `class` attribute set to `"main"`, containing an `h1`
+||| element with the text `"My Heading"`, and a `p` element with the text `"Lorem ipsum dolor sit amet."`.
 
 module Html
 
@@ -51,7 +51,7 @@ data Html
 
 
 mutual
-    export
+    public export
     Interpolation Html where
         interpolate (TextNode   text                    ) = text
         interpolate (LeafNode   name []                 ) = "<\{name}>"
@@ -64,32 +64,89 @@ mutual
         interpolate (RootNode   root            children) = "<!\{root}>\{children}"
 
 
-    export
+    public export
     Interpolation (List Html) where
         interpolate = concat . map interpolate
 
 
-export
+||| Creates a text node with the given string value.
+|||
+||| Example:
+|||
+||| ```idris example
+||| import Html
+|||
+||| myText : Html
+||| myText =
+|||     Html.text "Hello, world!"
+||| ```
+|||
+||| This will generate a `TextNode` value with the string `"Hello, world!"`.
+public export
 text : String -> Html
 text = TextNode
 
 
-export
-leaf : String -> List Attribute -> Html
-leaf = LeafNode
+||| Creates a custom leaf node with the given tag name and attribute list.
+|||
+||| Example:
+|||
+||| ```idris example
+||| import Html
+||| import Html.Attributes
+|||
+||| myCustomElement : List Attribute -> Html
+||| myCustomElement =
+|||     Html.customLeafNode "my-custom-element"
+||| ```
+|||
+||| This will generate a `LeafNode` value representing a custom HTML element with the tag name `"my-custom-element"`.
+public export
+customLeafNode : String -> List Attribute -> Html
+customLeafNode = LeafNode
 
 
-export
-parent : String -> List Attribute -> List Html -> Html
-parent = ParentNode
+||| Creates a custom parent node with the given tag name, attribute list, and child nodes.
+|||
+||| Example:
+|||
+||| ```idris example
+||| import Html
+||| import Html.Attributes
+|||
+||| myCustomElement : List Attribute -> List Html -> Html
+||| myCustomElement =
+|||     Html.customParentNode "my-custom-element"
+||| ```
+|||
+||| This will generate a `ParentNode` value representing a custom HTML element with the tag name `"my-custom-element"`.
+public export
+customParentNode : String -> List Attribute -> List Html -> Html
+customParentNode = ParentNode
 
 
-export
-root : String -> List Html -> Html
-root = RootNode
+||| Creates a custom root node with the given root element tag name and child nodes.
+|||
+||| Example:
+|||
+||| ```idris example
+||| import Html
+|||
+||| myCustomElement : List Html -> Html
+||| myCustomElement =
+|||     Html.customRootNode "my-custom-element"
+||| ```
+|||
+||| This will generate a `RootNode` value representing the root element of an HTML document with the tag name
+||| `"my-custom-element"`.
+public export
+customRootNode : String -> List Html -> Html
+customRootNode = RootNode
 
 
-export
+||| Creates an `Html` DOCTYPE element with the value "html".
+|||
+public export
 doctype : List Html -> Html
 doctype = RootNode "DOCTYPE html"
 
@@ -111,7 +168,7 @@ doctype = RootNode "DOCTYPE html"
 |||
 ||| This example generates an anchor element with an `href` attribute pointing to `https://example.com/` and containing
 ||| the text "Link to example.com".
-export
+public export
 a : List Attribute -> List Html -> Html
 a = ParentNode "a"
 
@@ -133,7 +190,7 @@ a = ParentNode "a"
 |||
 ||| This example generates an abbreviation element with a `title` attribute set to "Random-Access Memory" and
 ||| containing the text "RAM".
-export
+public export
 abbr : List Attribute -> List Html -> Html
 abbr = ParentNode "abbr"
 
@@ -158,7 +215,7 @@ abbr = ParentNode "abbr"
 |||
 ||| This example generates an address element with no attributes and containing contact information for "John Smith" at
 ||| "123 Main St., Anytown, USA 12345".
-export
+public export
 address : List Attribute -> List Html -> Html
 address = ParentNode "address"
 
@@ -185,541 +242,541 @@ address = ParentNode "address"
 ||| be taken when the area is clicked, while the `alt` attribute provides alternative text for the area in case the
 ||| image cannot be displayed. The `coords` attribute defines the shape and size of the area, in terms of pixel
 ||| coordinates relative to the top-left corner of the image.
-export
+public export
 area : List Attribute -> Html
 area = LeafNode "area"
 
 
-export
+public export
 article : List Attribute -> List Html -> Html
 article = ParentNode "article"
 
 
-export
+public export
 aside : List Attribute -> List Html -> Html
 aside = ParentNode "aside"
 
 
-export
+public export
 audio : List Attribute -> List Html -> Html
 audio = ParentNode "audio"
 
 
-export
+public export
 b : List Attribute -> List Html -> Html
 b = ParentNode "b"
 
 
-export
+public export
 base : List Attribute -> Html
 base = LeafNode "base"
 
 
-export
+public export
 bdi : List Attribute -> List Html -> Html
 bdi = ParentNode "bdi"
 
 
-export
+public export
 bdo : List Attribute -> List Html -> Html
 bdo = ParentNode "bdo"
 
 
-export
+public export
 blockquote : List Attribute -> List Html -> Html
 blockquote = ParentNode "blockquote"
 
 
-export
+public export
 body : List Attribute -> List Html -> Html
 body = ParentNode "body"
 
 
-export
+public export
 br : List Attribute -> Html
 br = LeafNode "br"
 
 
-export
+public export
 button : List Attribute -> List Html -> Html
 button = ParentNode "button"
 
 
-export
+public export
 canvas : List Attribute -> List Html -> Html
 canvas = ParentNode "canvas"
 
 
-export
+public export
 caption : List Attribute -> List Html -> Html
 caption = ParentNode "caption"
 
 
-export
+public export
 cite : List Attribute -> List Html -> Html
 cite = ParentNode "cite"
 
 
-export
+public export
 code : List Attribute -> List Html -> Html
 code = ParentNode "code"
 
 
-export
+public export
 col : List Attribute -> Html
 col = LeafNode "col"
 
 
-export
+public export
 colgroup : List Attribute -> List Html -> Html
 colgroup = ParentNode "colgroup"
 
 
-export
+public export
 data_ : List Attribute -> List Html -> Html
 data_ = ParentNode "data_"
 
 
-export
+public export
 datalist : List Attribute -> List Html -> Html
 datalist = ParentNode "datalist"
 
 
-export
+public export
 dd : List Attribute -> List Html -> Html
 dd = ParentNode "dd"
 
 
-export
+public export
 del : List Attribute -> List Html -> Html
 del = ParentNode "del"
 
 
-export
+public export
 details : List Attribute -> List Html -> Html
 details = ParentNode "details"
 
 
-export
+public export
 dfn : List Attribute -> List Html -> Html
 dfn = ParentNode "dfn"
 
 
-export
+public export
 dialog : List Attribute -> List Html -> Html
 dialog = ParentNode "dialog"
 
 
-export
+public export
 div : List Attribute -> List Html -> Html
 div = ParentNode "div"
 
 
-export
+public export
 dl : List Attribute -> List Html -> Html
 dl = ParentNode "dl"
 
 
-export
+public export
 dt : List Attribute -> List Html -> Html
 dt = ParentNode "dt"
 
 
-export
+public export
 em : List Attribute -> List Html -> Html
 em = ParentNode "em"
 
 
-export
+public export
 embed : List Attribute -> Html
 embed = LeafNode "embed"
 
 
-export
+public export
 fieldset : List Attribute -> List Html -> Html
 fieldset = ParentNode "fieldset"
 
 
-export
+public export
 figcaption : List Attribute -> List Html -> Html
 figcaption = ParentNode "figcaption"
 
 
-export
+public export
 figure : List Attribute -> List Html -> Html
 figure = ParentNode "figure"
 
 
-export
+public export
 footer : List Attribute -> List Html -> Html
 footer = ParentNode "footer"
 
 
-export
+public export
 form : List Attribute -> List Html -> Html
 form = ParentNode "form"
 
 
-export
+public export
 h1 : List Attribute -> List Html -> Html
 h1 = ParentNode "h1"
 
 
-export
+public export
 h2 : List Attribute -> List Html -> Html
 h2 = ParentNode "h2"
 
 
-export
+public export
 h3 : List Attribute -> List Html -> Html
 h3 = ParentNode "h3"
 
 
-export
+public export
 h4 : List Attribute -> List Html -> Html
 h4 = ParentNode "h4"
 
 
-export
+public export
 h5 : List Attribute -> List Html -> Html
 h5 = ParentNode "h5"
 
 
-export
+public export
 h6 : List Attribute -> List Html -> Html
 h6 = ParentNode "h6"
 
 
-export
+public export
 head : List Attribute -> List Html -> Html
 head = ParentNode "head"
 
 
-export
+public export
 header : List Attribute -> List Html -> Html
 header = ParentNode "header"
 
 
-export
+public export
 hgroup : List Attribute -> List Html -> Html
 hgroup = ParentNode "hgroup"
 
 
-export
+public export
 hr : List Attribute -> Html
 hr = LeafNode "hr"
 
 
-export
+public export
 html : List Attribute -> List Html -> Html
 html = ParentNode "html"
 
 
-export
+public export
 i : List Attribute -> List Html -> Html
 i = ParentNode "i"
 
 
-export
+public export
 iframe : List Attribute -> List Html -> Html
 iframe = ParentNode "iframe"
 
 
-export
+public export
 img : List Attribute -> Html
 img = LeafNode "img"
 
 
-export
+public export
 input : List Attribute -> Html
 input = LeafNode "input"
 
 
-export
+public export
 ins : List Attribute -> List Html -> Html
 ins = ParentNode "ins"
 
 
-export
+public export
 kbd : List Attribute -> List Html -> Html
 kbd = ParentNode "kbd"
 
 
-export
+public export
 label : List Attribute -> List Html -> Html
 label = ParentNode "label"
 
 
-export
+public export
 legend : List Attribute -> List Html -> Html
 legend = ParentNode "legend"
 
 
-export
+public export
 li : List Attribute -> List Html -> Html
 li = ParentNode "li"
 
 
-export
+public export
 link : List Attribute -> Html
 link = LeafNode "link"
 
 
-export
+public export
 main : List Attribute -> List Html -> Html
 main = ParentNode "main"
 
 
-export
+public export
 map : List Attribute -> List Html -> Html
 map = ParentNode "map"
 
 
-export
+public export
 mark : List Attribute -> List Html -> Html
 mark = ParentNode "mark"
 
 
-export
+public export
 menu : List Attribute -> List Html -> Html
 menu = ParentNode "menu"
 
 
-export
+public export
 meta : List Attribute -> Html
 meta = LeafNode "meta"
 
 
-export
+public export
 meter : List Attribute -> List Html -> Html
 meter = ParentNode "meter"
 
 
-export
+public export
 nav : List Attribute -> List Html -> Html
 nav = ParentNode "nav"
 
 
-export
+public export
 noscript : List Attribute -> List Html -> Html
 noscript = ParentNode "noscript"
 
 
-export
+public export
 object : List Attribute -> List Html -> Html
 object = ParentNode "object"
 
 
-export
+public export
 ol : List Attribute -> List Html -> Html
 ol = ParentNode "ol"
 
 
-export
+public export
 optgroup : List Attribute -> List Html -> Html
 optgroup = ParentNode "optgroup"
 
 
-export
+public export
 option : List Attribute -> List Html -> Html
 option = ParentNode "option"
 
 
-export
+public export
 output : List Attribute -> List Html -> Html
 output = ParentNode "output"
 
 
-export
+public export
 p : List Attribute -> List Html -> Html
 p = ParentNode "p"
 
 
-export
+public export
 picture : List Attribute -> List Html -> Html
 picture = ParentNode "picture"
 
 
-export
+public export
 pre : List Attribute -> List Html -> Html
 pre = ParentNode "pre"
 
 
-export
+public export
 progress : List Attribute -> List Html -> Html
 progress = ParentNode "progress"
 
 
-export
+public export
 q : List Attribute -> List Html -> Html
 q = ParentNode "q"
 
 
-export
+public export
 rp : List Attribute -> List Html -> Html
 rp = ParentNode "rp"
 
 
-export
+public export
 rt : List Attribute -> List Html -> Html
 rt = ParentNode "rt"
 
 
-export
+public export
 ruby : List Attribute -> List Html -> Html
 ruby = ParentNode "ruby"
 
 
-export
+public export
 s : List Attribute -> List Html -> Html
 s = ParentNode "s"
 
 
-export
+public export
 samp : List Attribute -> List Html -> Html
 samp = ParentNode "samp"
 
 
-export
+public export
 script : List Attribute -> List Html -> Html
 script = ParentNode "script"
 
 
-export
+public export
 section : List Attribute -> List Html -> Html
 section = ParentNode "section"
 
 
-export
+public export
 select : List Attribute -> List Html -> Html
 select = ParentNode "select"
 
 
-export
+public export
 slot : List Attribute -> List Html -> Html
 slot = ParentNode "slot"
 
 
-export
+public export
 small : List Attribute -> List Html -> Html
 small = ParentNode "small"
 
 
-export
+public export
 source : List Attribute -> Html
 source = LeafNode "source"
 
 
-export
+public export
 span : List Attribute -> List Html -> Html
 span = ParentNode "span"
 
 
-export
+public export
 strong : List Attribute -> List Html -> Html
 strong = ParentNode "strong"
 
 
-export
+public export
 style : List Attribute -> List Html -> Html
 style = ParentNode "style"
 
 
-export
+public export
 sub : List Attribute -> List Html -> Html
 sub = ParentNode "sub"
 
 
-export
+public export
 summary : List Attribute -> List Html -> Html
 summary = ParentNode "summary"
 
 
-export
+public export
 sup : List Attribute -> List Html -> Html
 sup = ParentNode "sup"
 
 
-export
+public export
 table : List Attribute -> List Html -> Html
 table = ParentNode "table"
 
 
-export
+public export
 tbody : List Attribute -> List Html -> Html
 tbody = ParentNode "tbody"
 
 
-export
+public export
 td : List Attribute -> List Html -> Html
 td = ParentNode "td"
 
 
-export
+public export
 template : List Attribute -> List Html -> Html
 template = ParentNode "template"
 
 
-export
+public export
 textarea : List Attribute -> List Html -> Html
 textarea = ParentNode "textarea"
 
 
-export
+public export
 tfoot : List Attribute -> List Html -> Html
 tfoot = ParentNode "tfoot"
 
 
-export
+public export
 th : List Attribute -> List Html -> Html
 th = ParentNode "th"
 
 
-export
+public export
 thead : List Attribute -> List Html -> Html
 thead = ParentNode "thead"
 
 
-export
+public export
 time : List Attribute -> List Html -> Html
 time = ParentNode "time"
 
 
-export
+public export
 title : List Attribute -> List Html -> Html
 title = ParentNode "title"
 
 
-export
+public export
 tr : List Attribute -> List Html -> Html
 tr = ParentNode "tr"
 
 
-export
+public export
 track : List Attribute -> Html
 track = LeafNode "track"
 
 
-export
+public export
 u : List Attribute -> List Html -> Html
 u = ParentNode "u"
 
 
-export
+public export
 ul : List Attribute -> List Html -> Html
 ul = ParentNode "ul"
 
 
-export
+public export
 var : List Attribute -> List Html -> Html
 var = ParentNode "var"
 
 
-export
+public export
 video : List Attribute -> List Html -> Html
 video = ParentNode "video"
 
 
-export
+public export
 wbr : List Attribute -> Html
 wbr = LeafNode "wbr"
