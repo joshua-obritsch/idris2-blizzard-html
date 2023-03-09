@@ -1,3 +1,24 @@
+||| The `Html` module provides a collection of functions for generating HTML elements.
+|||
+||| Each function in this module returns an `Html` value that represents an HTML element. `Html` values can be composed
+||| using other `Html` values to create complex HTML documents.
+|||
+||| Example:
+|||
+||| ```idris example
+||| import Html
+||| import Html.Attributes as Attr
+|||
+||| myPage : Html
+||| myPage =
+|||     Html.article [ Attr.class "main" ]
+|||         [ Html.h1 []
+|||             [ Html.text "My Heading" ]
+|||         , Html.p []
+|||             [ Html.text "Lorem ipsum dolor sit amet." ]
+|||         ]
+||| ```
+
 module Html
 
 
