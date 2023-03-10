@@ -50,23 +50,26 @@ data Html
       RootNode   String                  (List Html)
 
 
-mutual
-    public export
-    Interpolation Html where
-        interpolate (TextNode   text                    ) = text
-        interpolate (LeafNode   name []                 ) = "<\{name}>"
-        interpolate (LeafNode   name attributes         ) = "<\{name}\{attributes}>"
-        interpolate (ParentNode name []         []      ) = "<\{name}></\{name}>"
-        interpolate (ParentNode name attributes []      ) = "<\{name}\{attributes}></\{name}>"
-        interpolate (ParentNode name []         children) = "<\{name}>\{children}</\{name}>"
-        interpolate (ParentNode name attributes children) = "<\{name}\{attributes}>\{children}</\{name}>"
-        interpolate (RootNode   root            []      ) = "<!\{root}>"
-        interpolate (RootNode   root            children) = "<!\{root}>\{children}"
+Interpolation Html
+Interpolation (List Html)
 
 
-    public export
-    Interpolation (List Html) where
-        interpolate = concat . map interpolate
+public export
+Interpolation Html where
+    interpolate (TextNode   text                    ) = text
+    interpolate (LeafNode   name []                 ) = "<\{name}>"
+    interpolate (LeafNode   name attributes         ) = "<\{name}\{attributes}>"
+    interpolate (ParentNode name []         []      ) = "<\{name}></\{name}>"
+    interpolate (ParentNode name attributes []      ) = "<\{name}\{attributes}></\{name}>"
+    interpolate (ParentNode name []         children) = "<\{name}>\{children}</\{name}>"
+    interpolate (ParentNode name attributes children) = "<\{name}\{attributes}>\{children}</\{name}>"
+    interpolate (RootNode   root            []      ) = "<!\{root}>"
+    interpolate (RootNode   root            children) = "<!\{root}>\{children}"
+
+
+public export
+Interpolation (List Html) where
+    interpolate = concat . map interpolate
 
 
 ||| Creates a text node with the given string value.
