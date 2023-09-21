@@ -72,22 +72,8 @@ Interpolation (List Html) where
     interpolate = concat . map interpolate
 
 
-||| Creates a text node with the given string value.
-|||
-||| Example:
-|||
-||| ```idris example
-||| import Html
-|||
-||| myText : Html
-||| myText =
-|||     Html.text "Hello, world!"
-||| ```
-|||
-||| This will generate a `TextNode` value with the string `"Hello, world!"`.
-public export
-text : String -> Html
-text = TextNode
+FromString Html where
+    fromString = TextNode
 
 
 ||| Creates a custom leaf node with the given tag name and attribute list.
